@@ -1,0 +1,29 @@
+apply plugin: 'java'
+
+defaultTasks 'compileJava','jar'
+
+description = "Wolf-PAC web-scraping and data analysis"
+sourceCompatibility = 1.7
+
+sourceSets {
+  main {
+    output.classesDir = 'build/classes'
+    output.resourcesDir = output.classesDir
+    java {
+      srcDir 'src'
+      exclude '**/new/**','**/old/**'
+    }
+  }
+}
+
+jar {
+  baseName 'wolf-pac'
+  manifest {
+    attributes 'Implementation-Title': project.description
+  }
+}
+
+repositories.mavenCentral() // for Scala jars
+dependencies {
+  compile fileTree('build/libs') // jsoup jar
+}
